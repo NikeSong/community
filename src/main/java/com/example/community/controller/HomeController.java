@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/alpha")
+//@RequestMapping("/alpha")
 public class HomeController {
     @Autowired
     private UserService userService;
@@ -83,6 +83,7 @@ public class HomeController {
         session.setAttribute("name","test");
         return "set session";
     }
+
     @RequestMapping(path = "/session/get", method = RequestMethod.GET)
     @ResponseBody
     public String getSession(HttpSession session){
