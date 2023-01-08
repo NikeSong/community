@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
-@ContextConfiguration(classes = Community1Application.class)
+@ContextConfiguration(classes = CommunityApplication.class)
 
 class CommunityApplicationTests implements ApplicationContextAware {
     private ApplicationContext applicationContext;

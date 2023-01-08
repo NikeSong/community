@@ -9,7 +9,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 @SpringBootTest
-@ContextConfiguration(classes = Community1Application.class)
+@ContextConfiguration(classes = CommunityApplication.class)
 
 public class MailTests {
 

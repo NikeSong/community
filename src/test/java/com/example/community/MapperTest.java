@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
-@ContextConfiguration(classes = Community1Application.class)
+@ContextConfiguration(classes = CommunityApplication.class)
 public class MapperTest {
 
     @Autowired

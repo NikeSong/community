@@ -168,4 +168,21 @@ public class UserService implements CommunityConstant {
     {
         return userMapper.updateHeader(userId,headerUrl);
     }
+
+    public void updatePassword(User user,String iniPassword,String newPassword,String repNewPassword,Map<String,String> error){
+        if(!newPassword.equals(repNewPassword)){
+            error.put("repNewPasswordError","两次输入的密码不一致！");
+            return;
+        }
+        if(!user.getPassword().equals(CommunityUtil.md5(iniPassword+user.getSalt()))){
+            error.put("iniPasswordError","原密码不正确！");
+            return;
+        }
+        if(newPassword.length()<8){
+            error.put("newPasswordError","密码长度不得小于8位！");
+            return;
+        }
+        //修改密码
+        userMapper.updatePassword(user.getId(),newPassword);
+    }
 }

@@ -17,11 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 @Controller
 @RequestMapping(path = "/user")
@@ -78,7 +83,7 @@ public class UserController {
             throw new RuntimeException("上传文件失败，服务器异常",e);
         }
         //更新当前用户头像路径(web路径)
-        //http://localhost:8080/community/userHeader/xxx.png
+        //http://localhost:8080/community/user/Header/xxx.png
         User user = hostHolder.getUser();
         String headerUrl= domain + contextPath + "/user/header/" + fileName;
         userService.updateHeader(user.getId(),headerUrl);
@@ -108,5 +113,21 @@ public class UserController {
         } catch (IOException e) {
             logger.error("读取头像失败"+e.getMessage());
         }
+    }
+
+    @RequestMapping(path = "/modifyPassword",method = RequestMethod.POST)
+    public String modifyPassword(HttpServletRequest request, String iniPassword, String newPassword, String repNewPassword, Model model)
+    {
+        Map<String,String> error = new HashMap<>();
+        Cookie[] cookies = request.getCookies();
+        User user = hostHolder.getUser();
+        userService.updatePassword(user,iniPassword,newPassword,repNewPassword,error);
+        if(error.size() != 0)   //如果有报错信息，则把错误信息转存到model，回到setting界面
+        {
+            Set<String> strings = error.keySet();
+            for(String key:strings) model.addAttribute(key,error.get(key));
+            return "/site/setting";
+        }
+        return "redirect:/index";
     }
 }

@@ -10,6 +10,7 @@ public class CommunityUtil {
     public static String generateUUID(){
         return UUID.randomUUID().toString().replaceAll("-","");
     }
+
     //MD5加密：只能加密不能解密
     public static String md5(String key) {
         if(StringUtils.isBlank(key)) return null;
