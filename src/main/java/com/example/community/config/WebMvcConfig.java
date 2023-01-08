@@ -20,6 +20,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //registry.addInterceptor(alphaInterceptor);//拦截一切请求
+
         //因为访问静态资源使用的是localHost:8080/community/css/...
         // /**表示static目录下所有文件夹 *.css表示所有目录下的所有css文件
         registry.addInterceptor(alphaInterceptor).excludePathPatterns("/**/*.css","/**/*.js", //使访问静态资源的请求都不拦截
