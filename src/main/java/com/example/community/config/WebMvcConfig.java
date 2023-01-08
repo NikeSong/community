@@ -1,6 +1,7 @@
 package com.example.community.config;
 
 import com.example.community.controller.interceptor.AlphaInterceptor;
+import com.example.community.controller.interceptor.LoginRequiredInterceptor;
 import com.example.community.controller.interceptor.LoginTicketInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +13,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private AlphaInterceptor alphaInterceptor;
-
     @Autowired
     private LoginTicketInterceptor loginTicketInterceptor;
+    @Autowired
+    private LoginRequiredInterceptor loginRequiredInterceptor;
 
     //注册拦截器，定义好的拦截器必须在这里注册才是有效的
     @Override
@@ -29,6 +31,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(loginTicketInterceptor).excludePathPatterns("/**/*.css","/**/*.js",
                 "/**/*.png","/**/*.jpeg","/**/*.jpg");//使访问静态资源的请求都不拦截
-
+        registry.addInterceptor(loginRequiredInterceptor).excludePathPatterns("/**/*.css","/**/*.js",
+                "/**/*.png","/**/*.jpeg","/**/*.jpg");//使访问静态资源的请求都不拦截
     }
 }
