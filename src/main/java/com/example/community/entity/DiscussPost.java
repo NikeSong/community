@@ -6,7 +6,7 @@ public class DiscussPost {
     private int id;
     private int userId;
     private String title;
-    private String context;
+    private String content;
     private int type;
     private int status;
     private Date createTime;
@@ -15,12 +15,11 @@ public class DiscussPost {
 
     public DiscussPost() {
     }
-
-    public DiscussPost(int id, int userId, String title, String context, int type, int status, Date createTime, int commentCount, double score) {
+    public DiscussPost(int id, int userId, String title, String content, int type, int status, Date createTime, int commentCount, double score) {
         this.id = id;
         this.userId = userId;
         this.title = title;
-        this.context = context;
+        this.content = content;
         this.type = type;
         this.status = status;
         this.createTime = createTime;
@@ -34,7 +33,7 @@ public class DiscussPost {
                 "id=" + id +
                 ", userId=" + userId +
                 ", title='" + title + '\'' +
-                ", context='" + context + '\'' +
+                ", content='" + content + '\'' +
                 ", type=" + type +
                 ", status=" + status +
                 ", createTime=" + createTime +
@@ -67,12 +66,12 @@ public class DiscussPost {
         this.title = title;
     }
 
-    public String getContext() {
-        return context;
+    public String getContent() {
+        return content;
     }
 
-    public void setContext(String context) {
-        this.context = context;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public int getType() {

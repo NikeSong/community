@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-//@RequestMapping("/alpha")
 public class HomeController {
     @Autowired
     private UserService userService;
