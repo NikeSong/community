@@ -7,25 +7,33 @@
     <sql id="selectFields">
         id,user_id,entity_type,entity_id,target_id,content,status,create_time
     </sql>
+    <sql id="insertFields">
+        user_id,entity_type,entity_id,target_id,content,status,create_time
+    </sql>
 
     <!--List<Comment> selectCommentByEntity(int entityType,int entityId,int offset,int limit);-->
     <select id="selectCommentByEntity" resultType="Comment">
         select <include refid="selectFields"></include>
         from comment
         where status = 0  <!--评论有效-->
-                and entity_type = #{entityTye}
+                and entity_type = #{entityType}
                 and entity_id = #{entityId}
         order by create_time asc
         limit #{offset},#{limit}
     </select>
 
     <!--int countByEntity(int entityType,int entityId);-->
-    <select id="countByEntity" resultType="int">
+    <select id="selectCountByEntity" resultType="int">
         select count(id)
         from comment
         where status = 0  <!--评论有效-->
-            and entity_type = #{entityTye}
+            and entity_type = #{entityType}
             and entity_id = #{entityId}
     </select>
 
+    <!--int insertComment(Comment comment);-->
+    <insert id="insertComment" parameterType="Comment">
+        insert into comment(<include refid="insertFields"></include>)
+        values (#{userId},#{entityType},#{entityId},#{targetId},#{content},#{status},#{createTime})
+    </insert>
 </mapper>

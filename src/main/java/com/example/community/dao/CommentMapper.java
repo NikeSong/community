@@ -11,5 +11,8 @@ public interface CommentMapper {
     List<Comment> selectCommentByEntity(int entityType,int entityId,int offset,int limit);//根据此评论是针对的哪个实体来进行查询
                                             //实体如是哪个帖子，还是哪个评论
 
-    int countByEntity(int entityType,int entityId);
+    int selectCountByEntity(int entityType,int entityId);
+
+    int insertComment(Comment comment);
+
 }
