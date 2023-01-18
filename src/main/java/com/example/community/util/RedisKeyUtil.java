@@ -1,11 +1,16 @@
 package com.example.community.util;
 
+import com.example.community.service.UserService;
+
 public class RedisKeyUtil {
     private static final String SPLIT = ":";
     private static final String PREFIX_LIKE = "like:entity";
     private static final String PREFIX_USER_LIKE = "like:user";
     private static final String PREFIX_FOLLOWEE = "followee";
     private static final String PREFIX_FLOOWER = "follower";
+    private static final String PREFIX_KAPTCHA = "kaptcha";
+    private static final String PREFIX_TICKET = "ticket";
+    private static final String PREFIX_USER = "user";
     //某个实体的赞的key
     //like:entity:entityType:entityId -> set<userId>
     public static String getEntityLikeKey(int entityType,int entityId) {
@@ -31,4 +36,18 @@ public class RedisKeyUtil {
         return PREFIX_FLOOWER + SPLIT + entityType + SPLIT + entityId;
     }
 
+    // 登陆验证码
+    public static String getKaptchaKey(String owner){
+        return PREFIX_KAPTCHA + SPLIT + owner;
+    }
+
+    //登陆后获得的凭证
+    public static String getTicketKey(String ticket){
+        return PREFIX_TICKET + SPLIT + ticket;
+    }
+
+    //获得用户
+    public static String getUserKey(int userId){
+        return PREFIX_USER + SPLIT + userId;
+    }
 }
