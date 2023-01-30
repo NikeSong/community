@@ -31,6 +31,7 @@ public class ServiceLogAspect {
     {
         //用户[123.122.122.122]在[yyyy-MM-dd HH:mm:ss]访问了[com.nike.community.service.function]
         ServletRequestAttributes attributes =(ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if(attributes == null) {return;}//防止下一句出现空指针异常，因为kafka的消费者处理消息的过程调用了service，但是此时没有ip，所以getRequest会空指针
         HttpServletRequest request = attributes.getRequest();
         String ip = request.getRemoteHost();
         String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
