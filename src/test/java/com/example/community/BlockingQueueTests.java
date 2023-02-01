@@ -2,7 +2,6 @@ package com.example.community;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import sun.java2d.loops.Blit;
 
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
