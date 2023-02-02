@@ -29,7 +29,7 @@ public class DiscussPostService {
     public int addDiscussPost(DiscussPost post){
         //检查参数是否为空
         if(post == null){
-            throw new IllegalArgumentException("参数不能为空");
+            throw new IllegalArgumentException("Add Discuss Post 参数不能为空");
         }
         //去除内容中的标签
         post.setTitle(HtmlUtils.htmlEscape(post.getTitle()));

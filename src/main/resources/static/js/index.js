@@ -18,7 +18,7 @@ function publish() {
 	// 发送异步请求(POST)
 	$.post(
 	    CONTEXT_PATH + "/discuss/add",
-	    {"title":title,"context":content},
+	    {"title":title,"content":content},
 	    function(data) {
 	        data = $.parseJSON(data);
 	        // 在提示框中显示返回消息
