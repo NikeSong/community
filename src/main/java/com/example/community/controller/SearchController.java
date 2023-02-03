@@ -6,6 +6,7 @@ import com.example.community.service.ElasticSearchService;
 import com.example.community.service.LikeService;
 import com.example.community.service.UserService;
 import com.example.community.util.CommunityConstant;
+import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
@@ -41,7 +42,9 @@ public class SearchController implements CommunityConstant {
         List<Map<String,Object>> discussPosts = new ArrayList<>();
         if(searchResult != null){
             for(SearchHit<DiscussPost> hint:searchResult) {
+
                 DiscussPost post = hint.getContent();
+                getHighLightContent(hint,post);
                 Map<String,Object> map  = new HashMap<>();
                 // 帖子存进去
                 map.put("post",post);
@@ -59,5 +62,32 @@ public class SearchController implements CommunityConstant {
         page.setRows(searchResult == null ? 0:(int) searchResult.getTotalHits());
 
         return "/site/search";
+    }
+
+    private void getHighLightContent(SearchHit<DiscussPost> hint,DiscussPost discussPost){
+        // 处理高亮
+        Map<String, List<String>> highlightFields = hint.getHighlightFields();
+        for (Map.Entry<String, List<String>> stringHighlightFieldEntry : highlightFields.entrySet()) {
+            String key = stringHighlightFieldEntry.getKey();
+            if (StringUtils.equals(key, "title")) {
+                List<String> fragments = stringHighlightFieldEntry.getValue();
+                StringBuilder sb = new StringBuilder();
+                for (String fragment : fragments) {
+                    sb.append(fragment);
+                }
+                discussPost.setTitle(sb.toString());
+            }
+        }
+        for (Map.Entry<String, List<String>> stringHighlightFieldEntry : highlightFields.entrySet()) {
+            String key = stringHighlightFieldEntry.getKey();
+            if (StringUtils.equals(key, "content")) {
+                List<String> fragments = stringHighlightFieldEntry.getValue();
+                StringBuilder sb = new StringBuilder();
+                for (String fragment : fragments) {
+                    sb.append(fragment);
+                }
+                discussPost.setContent(sb.toString());
+            }
+        }
     }
 }

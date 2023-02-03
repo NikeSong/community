@@ -1,9 +1,9 @@
 package com.example.community;
 
-
 import com.example.community.dao.DiscussPostMapper;
 import com.example.community.dao.elasticsearch.DiscussPostRepository;
 import com.example.community.entity.DiscussPost;
+import org.apache.commons.codec.binary.StringUtils;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -20,6 +20,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 @ContextConfiguration(classes = CommunityApplication.class)
@@ -44,7 +45,7 @@ class ElasticSearchTests {
 
     @Test
     public void testInsertList() {
-        for(int i=0;i<135;i++)
+        for(int i=101;i<=200;i++)
         {
             List<DiscussPost> discussPosts = discussPostMapper.selectDiscussPost(i, 0, 100);
             if(discussPosts != null){
@@ -100,12 +101,34 @@ class ElasticSearchTests {
 
         System.out.println("");
         System.out.println(search1.getTotalHits());
-        for(SearchHit hint:search1){
-            System.out.println(hint);
+        for(SearchHit<DiscussPost> hint:search1) {
+            DiscussPost discussPost = hint.getContent();
+            // 处理高亮
+            Map<String, List<String>> highlightFields = hint.getHighlightFields();
+            for (Map.Entry<String, List<String>> stringHighlightFieldEntry : highlightFields.entrySet()) {
+                String key = stringHighlightFieldEntry.getKey();
+                if (StringUtils.equals(key, "title")) {
+                    List<String> fragments = stringHighlightFieldEntry.getValue();
+                    StringBuilder sb = new StringBuilder();
+                    for (String fragment : fragments) {
+                        sb.append(fragment);
+                    }
+                    discussPost.setTitle(sb.toString());
+                }
+            }
+            for (Map.Entry<String, List<String>> stringHighlightFieldEntry : highlightFields.entrySet()) {
+                String key = stringHighlightFieldEntry.getKey();
+                if (StringUtils.equals(key, "content")) {
+                    List<String> fragments = stringHighlightFieldEntry.getValue();
+                    StringBuilder sb = new StringBuilder();
+                    for (String fragment : fragments) {
+                        sb.append(fragment);
+                    }
+                    discussPost.setTitle(sb.toString());
+                    System.out.println(discussPost);
+                }
+            }
         }
+
     }
-
-
-
-
 }
