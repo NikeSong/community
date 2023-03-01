@@ -147,8 +147,9 @@ public class MessageController implements CommunityConstant {
         User user = hostHolder.getUser();
         //评论类通知
         Message message = messageService.findLatestNotice(user.getId(),TOPIC_COMMENT);
-        Map<String,Object> messageVo = new HashMap<>();
+
         if(message != null){
+            Map<String,Object> messageVo = new HashMap<>();
             messageVo.put("message",message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());//因为序列化后里面有转义字符，所以这里恢复一下
@@ -164,13 +165,15 @@ public class MessageController implements CommunityConstant {
 
             int unread = messageService.findNoticeUnreadCount(user.getId(),TOPIC_COMMENT);
             messageVo.put("unread",unread);
+            model.addAttribute("commentNotice",messageVo);
         }
-        model.addAttribute("commentNotice",messageVo);
+
 
         //查询点赞类的通知
         message = messageService.findLatestNotice(user.getId(),TOPIC_LIKE);
-        messageVo = new HashMap<>();
+
         if(message != null){
+            Map<String,Object> messageVo = new HashMap<>();
             messageVo.put("message",message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());//因为序列化后里面有转义字符，所以这里恢复一下
@@ -186,13 +189,15 @@ public class MessageController implements CommunityConstant {
 
             int unread = messageService.findNoticeUnreadCount(user.getId(),TOPIC_LIKE);
             messageVo.put("unread",unread);
+            model.addAttribute("likeNotice",messageVo);
         }
-        model.addAttribute("likeNotice",messageVo);
+
 
         //查询关注类的通知
         message = messageService.findLatestNotice(user.getId(),TOPIC_FOLLOW);
-        messageVo = new HashMap<>();
+
         if(message != null){
+            Map<String,Object>messageVo = new HashMap<>();
             messageVo.put("message",message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());//因为序列化后里面有转义字符，所以这里恢复一下
@@ -207,8 +212,9 @@ public class MessageController implements CommunityConstant {
 
             int unread = messageService.findNoticeUnreadCount(user.getId(),TOPIC_FOLLOW);
             messageVo.put("unread",unread);
+            model.addAttribute("followNotice",messageVo);
         }
-        model.addAttribute("followNotice",messageVo);
+
 
 
         //所有通知
