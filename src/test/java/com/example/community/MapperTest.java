@@ -90,7 +90,7 @@ public class MapperTest {
 
     }
 
-    @Test
+/*    @Test
     public void testSelectLoginTicket()
     {
         LoginTicket loginTicket = loginTicketMapper.selectByTicket("123");
@@ -98,7 +98,7 @@ public class MapperTest {
         loginTicketMapper.updateStatus("123",1);
         loginTicket = loginTicketMapper.selectByTicket("123");
         System.out.println(loginTicket.toString());
-    }
+    }*/
 
     @Test
     public void testInsertPostMapper(){

@@ -12,8 +12,8 @@
     <groupId>com.example</groupId>
     <artifactId>community</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>community1</name>
-    <description>community1</description>
+    <name>community</name>
+    <description>community</description>
     <properties>
         <java.version>12</java.version>
     </properties>

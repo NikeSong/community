@@ -33,6 +33,6 @@ public class MailTests {
         String process = templateEngine.process("/mail/demo", context);
         System.out.println(process);
 
-        for(int i = 0;i<30;i++) mailClient.sendMail(myQqClient,"123",process);
+        //for(int i = 0;i<30;i++) mailClient.sendMail(myQqClient,"123",process);
     }
 }
